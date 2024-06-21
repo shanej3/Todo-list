@@ -5,8 +5,11 @@ const container = document.getElementById('container');
 const nameFromInput = document.getElementById('todo-name');
 const listContent = document.getElementById('list-content');
 
-const testButton = document.getElementById('create-todo-button');
-const testProjectButton = document.getElementById('generic-button');
+const createTodoButton = document.getElementById('create-todo-button');
+const genericButton = document.getElementById('generic-button');
+const newProjectButton = document.getElementById('new-project-button');
+const newProjectButtonInput = document.getElementById('new-project-button-input');
+const newProjectArea = document.getElementById('new-projects');
 
 const project_generic = project('one');
 project_generic.addTodo('test titlefdsa', 'test description', 2);
@@ -29,6 +32,21 @@ function createTodoCard(projectInstance) {
 
 }
 
+function createProjectCard(name) {  // creates project and html "card" for it
+    const newProject = project();
+
+    const newProjectCard = document.createElement('button');
+    newProjectCard.className = 'new-project';
+    newProjectCard.textContent = name;
+    newProjectCard.addEventListener("click", function() {
+        currentProject = newProject;
+        displayProject(currentProject);
+    })
+    
+    newProjectArea.appendChild(newProjectCard);
+
+}
+
 function displayProject(projectInstance) {
     const todos = projectInstance.getTodos();
     listContent.innerHTML = ""; // clear previous project
@@ -41,12 +59,18 @@ function displayProject(projectInstance) {
     }
 }
 
-testButton.addEventListener("click", function() {
-    createTodoCard(project_generic);
+createTodoButton.addEventListener("click", function() {
+    createTodoCard(currentProject);
+    nameFromInput.value = '';
     
 });
 
-testProjectButton.addEventListener("click", function() {
+genericButton.addEventListener("click", function() {
+    currentProject = project_generic;
     displayProject(currentProject);
+})
+
+newProjectButton.addEventListener("click", function() {
+    createProjectCard(newProjectButtonInput.value);
 })
 
