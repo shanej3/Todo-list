@@ -32,7 +32,6 @@ body, html, :root {
     gap : 0.5rem;
     height : 5rem;
     background-color: lightblue;
-    grid-rows : 1 / 1;
 }
 #todo-input {
     font-size : 2rem;
@@ -56,6 +55,7 @@ body, html, :root {
     vertical-align: middle; 
     line-height: 0;
 }
+
 #high-priority-button {
     background-image: url('svg/alert-circle.svg');
 
@@ -80,15 +80,18 @@ body, html, :root {
 }
 .delete-check-box {
     background-image: url('svg/square.svg');
-
+}
+.delete-check-box:hover {
+    background-image: url('svg/square-green.svg');
 }
 .delete-todo-button {
     background-image: url('svg/x-square.svg');
-
+}
+.delete-todo-button:hover {
+    background-image: url('svg/x-square-red.svg');
 }
 .new-todo.completed {
     text-decoration : line-through;
-    
 }
 .delete-check-box.check-box-marked {
     background-image: url('svg/check-square.svg');
