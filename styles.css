@@ -11,3 +11,6 @@
 .completed {
     text-decoration : line-through;
 }
+.high-priority { 
+    background-color: lightpink;
+}

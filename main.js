@@ -1,11 +1,11 @@
 import { project } from './project.js';
-import { createTodo } from './createTodo.js';
 
 const container = document.getElementById('container');
 const nameFromInput = document.getElementById('todo-name');
 const listContent = document.getElementById('list-content');
 
 const createTodoButton = document.getElementById('create-todo-button');
+const highPriorityButton = document.getElementById('high-priority-button');
 const genericButton = document.getElementById('generic-button');
 const newProjectButton = document.getElementById('new-project-button');
 const newProjectButtonInput = document.getElementById('new-project-button-input');
@@ -21,13 +21,16 @@ let currentProject = project_generic;
 displayProject(currentProject);
 
 
-function createTodoCard(projectInstance) {
-    const newTodoItem = projectInstance.addTodo(nameFromInput.value, 'test', 2);
+function createTodoCard(projectInstance, priority) {
+    // create the actual object
+    const newTodoItem = projectInstance.addTodo(nameFromInput.value, priority);
 
+    // create the "card" in html
     const newDiv = document.createElement('div');
     newDiv.className = 'new-todo';
     newDiv.textContent = newTodoItem.title;
 
+    // checkbox for strike-through text when completed
     const checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
     checkBox.id = 'delete-check-box';
@@ -49,6 +52,13 @@ function createTodoCard(projectInstance) {
         newDiv.remove();  // remove the todo card
     })
 
+    if (priority == true) {
+        newDiv.classList.add('high-priority');
+    }
+    else {
+        newDiv.classList.remove('high-priority');
+    }
+
     newDiv.appendChild(checkBox);
     newDiv.appendChild(deleteButton);
     listContent.appendChild(newDiv);
@@ -58,11 +68,16 @@ function createTodoCard(projectInstance) {
 
 
 function createProjectCard(name) {  // creates project and html "card" for it
-    const newProject = project();
+    const newProject = project();  // creates the actual object
+    // display project right as it's created
+    currentProject = newProject;
+    displayProject(currentProject);
 
+    // html
     const newProjectCard = document.createElement('button');
     newProjectCard.className = 'new-project';
     newProjectCard.textContent = name;
+    // view project by clicking it 
     newProjectCard.addEventListener("click", function() {
         currentProject = newProject;
         displayProject(currentProject);
@@ -87,7 +102,14 @@ function displayProject(projectInstance) {
 
 
 createTodoButton.addEventListener("click", function() {
-    createTodoCard(currentProject);
+    let priority = false;
+    if (highPriorityButton.checked) {
+        priority = true;
+    }
+    else {
+        priority = false;
+    }
+    createTodoCard(currentProject, priority);
     nameFromInput.value = '';
     
 });
@@ -99,5 +121,6 @@ genericButton.addEventListener("click", function() {
 
 newProjectButton.addEventListener("click", function() {
     createProjectCard(newProjectButtonInput.value);
+    displayProject(currentProject);
 })
 
