@@ -10,24 +10,28 @@
 <body>  
     <div id="container">
         <div class="sidebar">
-            <div id="projects-label">Projects</div>
-            <button div id="generic-button">Generic</button>
-            <div id="new-projects">
-
+            <div class="header">
+                <div id="projects-label">Projects</div>
             </div>
-            <input type="text" id="new-project-button-input">
-            <button id="new-project-button">New</button>
+            <div class="project-list">
+                <div id="new-projects">
+                    <button id="generic-button">General</button>
+                    <!-- to be injected by JavaScript -->
+                </div>
+            </div>
+            <div class="footer">
+                <input type="text" id="new-project-button-input">
+                <button id="new-project-button">New</button>
+            </div>
         </div>
         <div class="right-side">
             <input type="text" id="todo-name">
-            <input type="checkbox" id="high-priority-button">HP</inpuit>
+            <input type="checkbox" id="high-priority-button">HP
             <button id="create-todo-button">CREATE</button>
             <div id="list-content">
                 CONTENT
-                
             </div>
         </div>
-        
     </div>
 </body>
 </html>

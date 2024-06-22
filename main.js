@@ -17,6 +17,8 @@ project_generic.addTodo('test titlefdas', 'test description', 2);
 project_generic.addTodo('test title', 'test description', 2);
 project_generic.deleteTodo('test title');
 
+let numberOfProjects = 0;
+let maxNumberOfProjects = 10;
 let currentProject = project_generic;
 displayProject(currentProject);
 
@@ -24,6 +26,7 @@ displayProject(currentProject);
 function createTodoCard(projectInstance, priority) {
     // create the actual object
     const newTodoItem = projectInstance.addTodo(nameFromInput.value, priority);
+    console.log(newTodoItem);
 
     // create the "card" in html
     const newDiv = document.createElement('div');
@@ -62,7 +65,7 @@ function createTodoCard(projectInstance, priority) {
     newDiv.appendChild(checkBox);
     newDiv.appendChild(deleteButton);
     listContent.appendChild(newDiv);
-    console.log(currentProject.getTodos());
+    //console.log(currentProject.getTodos());
 
 }
 
@@ -97,6 +100,8 @@ function displayProject(projectInstance) {
         newDiv.textContent = todo.title;
         listContent.appendChild(newDiv);
 
+        //createTodoCard(currentProject, todo.priority);
+
     }
 }
 
@@ -120,7 +125,13 @@ genericButton.addEventListener("click", function() {
 })
 
 newProjectButton.addEventListener("click", function() {
-    createProjectCard(newProjectButtonInput.value);
-    displayProject(currentProject);
+    if (numberOfProjects <= maxNumberOfProjects) {
+        createProjectCard(newProjectButtonInput.value);
+        displayProject(currentProject);
+        numberOfProjects = numberOfProjects + 1;
+    }
+    newProjectButtonInput.value = '';
+    
+    
 })
 
