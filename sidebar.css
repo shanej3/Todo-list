@@ -1,20 +1,25 @@
+:root {
+    --off-white : #ffffffa4;
+}
 .sidebar {
     display : grid;
     grid-template-rows: 5rem auto 5rem;
     align-items: center;
     margin : 0;
     padding : 0;
-    background-color :lightblue;
+    background-color :var(--main-color);
 }
 #projects-label {
-    font-size : 3rem;
+    font-size : 3.5rem;
     padding-bottom : 1rem;
+    font-family : "Ubuntu", "sans-serif";
+    font-weight : 500;
 }
 .header {
     display : flex;
     align-items: center;
     justify-content: center;
-    background-color: lightblue;
+    background-color: var(--main-color);
     align-self : flex-start;
     height : 5rem;
 }
@@ -23,6 +28,8 @@
     align-items: center;
     justify-content: center;
     vertical-align: middle;
+    padding-left : 0.5rem;
+    padding-right : 0.5rem;
 }
 .project-list {
     display : flex;
@@ -31,19 +38,19 @@
 
 }
 #generic-button, .new-project { 
-    font-family : "Work Sans", sans-serif;
+    font-family : "Ubuntu", "sans-serif";
     display : flex;
     flex-direction: column;
-    font-size : 2rem;
+    font-size : 2.5rem;
     background : none;
     border : none;
     padding-left : 1rem;
     padding-right : 1rem;
-    background-color: rgb(162, 202, 216);
-    border-radius : 0.5rem;
+    cursor : pointer;
+    font-weight : 400;
 }
 #generic-button:hover, .new-project:hover {
-    background-color: rgb(104, 165, 185);
+    background-color: var(--off-white);
     
 }
 #new-projects {
@@ -57,15 +64,24 @@
  
 }
 #new-project-button {
-   font-size : 2rem;
-   background : none;
-   border : none;
-   margin : 0;
-   padding : 0;
-   line-height : 0;
-   cursor: pointer;
+    border: none;
+    background: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-size: contain;
+    background-repeat: no-repeat; 
+    width : 44px;
+    height : 44px;
+    padding: 0;
+    cursor: pointer;
+    vertical-align: middle; 
+    line-height: 0;
+    background-image: url('svg/plus-square-bigger.svg');
 }
-
+#new-project-button:hover {
+    background-image: url('svg/plus-square-bigger-white.svg');
+}
 #new-project-button-input {
     font-size : 2rem;
     margin : 0;

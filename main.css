@@ -1,17 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-.work-sans {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+.ubuntu-regular {
+    font-family: "Ubuntu", sans-serif;
     font-weight: 500;
     font-style: normal;
   }
+:root {
+    --main-color : #5a6cd4;
+}
 * {
     margin : 0;
     padding : 0;
     box-sizing : border-box;
 }
 body, html, :root {
-    font-family : "Work Sans", sans-serif;
+    font-family : "Ubuntu";
+    font-weight: 400;
     margin : 0;
     padding : 0;
     height : 100%;
@@ -31,7 +34,8 @@ body, html, :root {
     align-items: center;
     gap : 0.5rem;
     height : 5rem;
-    background-color: lightblue;
+    background-color: var(--main-color);
+    padding-left : 1rem;
 }
 #todo-input {
     font-size : 2rem;
@@ -77,6 +81,9 @@ body, html, :root {
 }
 #create-todo-button {
     background-image: url('svg/plus-square.svg');
+}
+#create-todo-button:hover {
+    background-image: url('svg/plus-square-white.svg');
 }
 .delete-check-box {
     background-image: url('svg/square.svg');
