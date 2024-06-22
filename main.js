@@ -12,9 +12,9 @@ const newProjectButtonInput = document.getElementById('new-project-button-input'
 const newProjectArea = document.getElementById('new-projects');
 
 const project_generic = project('one');
-project_generic.addTodo('Item 1', false);
-project_generic.addTodo('Item 2 (important)', true);
-project_generic.addTodo('Item 3', false);
+project_generic.addTodo('Item 1', false, false);
+project_generic.addTodo('Item 2 (important)', true, false);
+project_generic.addTodo('Item 3', false, true);
 
 let numberOfProjects = 0;
 let maxNumberOfProjects = 10;
@@ -22,6 +22,7 @@ let currentProject = project_generic;
 displayProject(currentProject);
 
 function createTodo() {
+    let completed = false;
     let priority = false;
     if (highPriorityButton.checked) {
         priority = true;
@@ -30,13 +31,14 @@ function createTodo() {
         priority = false;
     }
     // create actual todo item
-    const newTodoItem = currentProject.addTodo(nameFromInput.value, priority);
+    const newTodoItem = currentProject.addTodo(nameFromInput.value, priority, completed);
     // call function to display todo
     createTodoCard(newTodoItem);
     nameFromInput.value = '';
 }
 
 function createTodoCard(todo) {
+    // this function probably does too many things
     // create the "card" in html
     const newDiv = document.createElement('div');
     newDiv.className = 'new-todo';
@@ -48,17 +50,28 @@ function createTodoCard(todo) {
     const checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
     checkBox.className = 'delete-check-box';
+    checkCompleted(todo);
+    
     checkBox.addEventListener('change', function() {
-        if (checkBox.checked) {
+        todo.completed = todo.completed ? false : true;
+        if (todo.completed == true) {
+            checkCompleted();
+        }
+        if (todo.completed == false) {
+            checkCompleted();
+        }
+    })
+    function checkCompleted() {
+        if (todo.completed == true) {
             checkBox.classList.add('check-box-marked');
             newDiv.classList.add('completed');
         }
-        else {
+        if (todo.completed == false) {
             checkBox.classList.remove('check-box-marked');
             newDiv.classList.remove('completed');
         }
-    })
-
+    }
+    
     const deleteButton = document.createElement('button');
     deleteButton.className = 'delete-todo-button';
     
@@ -80,6 +93,7 @@ function createTodoCard(todo) {
     listContent.appendChild(newDiv);
 
 }
+
 
 function createProject() {
     if (numberOfProjects <= maxNumberOfProjects) {
