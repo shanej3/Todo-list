@@ -12,8 +12,8 @@ export function project() {
         getTodos() {
             return todos;
         },
-        deleteTodo(title) {  // delete todo given title
-            todos = todos.filter(t => t.title !== title); 
+        deleteTodo(id) {  // delete todo given title
+            todos = todos.filter(todo => todo.id !== id); 
         }
     }
 }

@@ -23,14 +23,39 @@ displayProject(currentProject);
 
 function createTodoCard(projectInstance) {
     const newTodoItem = projectInstance.addTodo(nameFromInput.value, 'test', 2);
+
     const newDiv = document.createElement('div');
     newDiv.className = 'new-todo';
     newDiv.textContent = newTodoItem.title;
 
+    const checkBox = document.createElement('input');
+    checkBox.type = 'checkbox';
+    checkBox.id = 'delete-check-box';
+    checkBox.addEventListener('change', function() {
+        if (checkBox.checked) {
+            newDiv.classList.add('completed');
+        }
+        else {
+            newDiv.classList.remove('completed');
+        }
+    })
+
+    const deleteButton = document.createElement('button');
+    deleteButton.id = 'delete-todo-button';
+    deleteButton.textContent = "Delete";
+    
+    deleteButton.addEventListener("click", function () {
+        projectInstance.deleteTodo(newTodoItem.id);  // remove the actual todo in memory
+        newDiv.remove();  // remove the todo card
+    })
+
+    newDiv.appendChild(checkBox);
+    newDiv.appendChild(deleteButton);
     listContent.appendChild(newDiv);
-    console.log(project_generic.getTodos());
+    console.log(currentProject.getTodos());
 
 }
+
 
 function createProjectCard(name) {  // creates project and html "card" for it
     const newProject = project();
@@ -47,6 +72,7 @@ function createProjectCard(name) {  // creates project and html "card" for it
 
 }
 
+
 function displayProject(projectInstance) {
     const todos = projectInstance.getTodos();
     listContent.innerHTML = ""; // clear previous project
@@ -58,6 +84,7 @@ function displayProject(projectInstance) {
 
     }
 }
+
 
 createTodoButton.addEventListener("click", function() {
     createTodoCard(currentProject);
