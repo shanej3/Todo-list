@@ -12,9 +12,9 @@ const newProjectButtonInput = document.getElementById('new-project-button-input'
 const newProjectArea = document.getElementById('new-projects');
 
 const project_generic = project('one');
-project_generic.addTodo('Item 1', 0);
-project_generic.addTodo('Item 2 (important)', 1);
-project_generic.addTodo('Item 3', 0);
+project_generic.addTodo('Item 1', false);
+project_generic.addTodo('Item 2 (important)', true);
+project_generic.addTodo('Item 3', false);
 
 let numberOfProjects = 0;
 let maxNumberOfProjects = 10;
