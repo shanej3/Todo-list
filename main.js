@@ -12,39 +12,55 @@ const newProjectButtonInput = document.getElementById('new-project-button-input'
 const newProjectArea = document.getElementById('new-projects');
 
 const project_generic = project('one');
-project_generic.addTodo('test titlefdsa', 'test description', 2);
-project_generic.addTodo('test titlefdas', 'test description', 2);
-project_generic.addTodo('test title', 'test description', 2);
-project_generic.deleteTodo('test title');
+project_generic.addTodo('Item 1', 0);
+project_generic.addTodo('Item 2 (important)', 1);
+project_generic.addTodo('Item 3', 0);
 
 let numberOfProjects = 0;
 let maxNumberOfProjects = 10;
 let currentProject = project_generic;
 displayProject(currentProject);
 
+function createTodo() {
+    let priority = false;
+    if (highPriorityButton.checked) {
+        priority = true;
+    }
+    else {
+        priority = false;
+    }
+    // create actual todo item
+    const newTodoItem = currentProject.addTodo(nameFromInput.value, priority);
+    // call function to display todo
+    createTodoCard(newTodoItem);
+    nameFromInput.value = '';
+}
 
 function createTodoCard(todo) {
     // create the "card" in html
     const newDiv = document.createElement('div');
     newDiv.className = 'new-todo';
-    newDiv.textContent = todo.title;
-
+    //newDiv.textContent = todo.title;
+    const textBox = document.createElement('div');
+    textBox.className = "textbox";
+    textBox.textContent = todo.title;
     // checkbox for strike-through text when completed
     const checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
-    checkBox.id = 'delete-check-box';
+    checkBox.className = 'delete-check-box';
     checkBox.addEventListener('change', function() {
         if (checkBox.checked) {
+            checkBox.classList.add('check-box-marked');
             newDiv.classList.add('completed');
         }
         else {
+            checkBox.classList.remove('check-box-marked');
             newDiv.classList.remove('completed');
         }
     })
 
     const deleteButton = document.createElement('button');
-    deleteButton.id = 'delete-todo-button';
-    deleteButton.textContent = "Delete";
+    deleteButton.className = 'delete-todo-button';
     
     deleteButton.addEventListener("click", function () {
         currentProject.deleteTodo(todo.id);  // remove the actual todo in memory
@@ -60,10 +76,19 @@ function createTodoCard(todo) {
 
     newDiv.appendChild(checkBox);
     newDiv.appendChild(deleteButton);
+    newDiv.appendChild(textBox);
     listContent.appendChild(newDiv);
 
 }
 
+function createProject() {
+    if (numberOfProjects <= maxNumberOfProjects) {
+        createProjectCard(newProjectButtonInput.value);
+        displayProject(currentProject);
+        numberOfProjects = numberOfProjects + 1;
+    }
+    newProjectButtonInput.value = '';
+}
 
 function createProjectCard(name) {  // creates project and html "card" for it
     const newProject = project();  // creates the actual object
@@ -96,20 +121,15 @@ function displayProject(projectInstance) {
 
 
 createTodoButton.addEventListener("click", function() {
-    let priority = false;
-    if (highPriorityButton.checked) {
-        priority = true;
-    }
-    else {
-        priority = false;
-    }
-    // create actual todo item
-    const newTodoItem = currentProject.addTodo(nameFromInput.value, priority);
-    // call function to display todo
-    createTodoCard(newTodoItem);
-    nameFromInput.value = '';
+    createTodo();
     
 });
+
+nameFromInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        createTodo();
+    }
+})
 
 genericButton.addEventListener("click", function() {
     currentProject = project_generic;
@@ -117,13 +137,15 @@ genericButton.addEventListener("click", function() {
 })
 
 newProjectButton.addEventListener("click", function() {
-    if (numberOfProjects <= maxNumberOfProjects) {
-        createProjectCard(newProjectButtonInput.value);
-        displayProject(currentProject);
-        numberOfProjects = numberOfProjects + 1;
-    }
-    newProjectButtonInput.value = '';
-    
+    createProject();
     
 })
+
+newProjectButtonInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        createProject();
+    }
+})
+
+
 

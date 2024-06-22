@@ -24,30 +24,41 @@ body, html, :root {
 }
 .right-side {
     display : grid;
-    grid-template-rows : 4rem auto;
-    padding-left : 1rem;
+    grid-template-rows : 5rem auto;
 }
 .right-header {
-    padding-top : 0.5rem;
     display : flex;
     align-items: center;
     gap : 0.5rem;
+    height : 5rem;
+    background-color: lightblue;
+    grid-rows : 1 / 1;
 }
 #todo-input {
     font-size : 2rem;
 }
-#high-priority-button {
+#high-priority-button, 
+#create-todo-button, 
+.delete-check-box, 
+.delete-todo-button {
+    /* delete default styling of buttons/checkboxes */
+    border: none;
+    background: none;
     appearance: none;
-    background-image: url('svg/alert-circle.svg');
+    -webkit-appearance: none;
+    -moz-appearance: none;
     background-size: contain;
     background-repeat: no-repeat; 
     width: 30px; 
     height: 30px;
     padding: 0;
-    border: none; 
     cursor: pointer;
     vertical-align: middle; 
-    line-height : 0;
+    line-height: 0;
+}
+#high-priority-button {
+    background-image: url('svg/alert-circle.svg');
+
 }
 #high-priority-button:checked { 
     background-image: url('svg/alert-circle-red.svg');
@@ -55,14 +66,33 @@ body, html, :root {
 #list-content {
     display : flex;
     flex-direction: column;
+    padding-top : 1rem;
     padding-left : 1rem;
 
 }
-.completed {
+.new-todo {
+    display : flex;
+    gap : 0.5rem;
+
+}
+#create-todo-button {
+    background-image: url('svg/plus-square.svg');
+}
+.delete-check-box {
+    background-image: url('svg/square.svg');
+
+}
+.delete-todo-button {
+    background-image: url('svg/x-square.svg');
+
+}
+.new-todo.completed {
     text-decoration : line-through;
     
 }
-.high-priority { 
-    background-color: lightpink;
+.delete-check-box.check-box-marked {
+    background-image: url('svg/check-square.svg');
 }
-
+.high-priority { 
+    font-weight : 600;
+}
