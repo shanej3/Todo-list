@@ -1,0 +1,56 @@
+.sidebar {
+    display : grid;
+    grid-template-rows: 5rem auto 5rem;
+    align-items: center;
+    margin : 0;
+    padding : 0;
+}
+#projects-label {
+    font-size : 3rem;
+    padding-bottom : 1rem;
+}
+.header {
+    display : flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(151, 151, 151, 0.568);
+    align-self : flex-start;
+}
+.footer {
+    display : flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+#generic-button { 
+    font-family : "Work Sans", sans-serif;
+    display : flex;
+    flex-direction: column;
+    font-size : 2rem;
+}
+#new-projects {
+    font-family : "Work Sans", sans-serif;
+    display : flex;
+    flex-direction: column;
+    overflow : auto;
+ 
+}
+.new-project {
+    font-size : 2rem;
+}
+#new-project-button {
+   font-size : 2rem;
+   background : none;
+   border : none;
+   margin : 0;
+   padding : 0;
+   line-height : 0;
+}
+
+#new-project-button-input {
+    font-size : 2rem;
+    margin : 0;
+    box-sizing : border-box;
+    vertical-align: middle;
+    margin-left : 0.5rem;
+}

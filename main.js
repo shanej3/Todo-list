@@ -1,7 +1,7 @@
 import { project } from './project.js';
 
 const container = document.getElementById('container');
-const nameFromInput = document.getElementById('todo-name');
+const nameFromInput = document.getElementById('todo-input');
 const listContent = document.getElementById('list-content');
 
 const createTodoButton = document.getElementById('create-todo-button');
@@ -23,15 +23,11 @@ let currentProject = project_generic;
 displayProject(currentProject);
 
 
-function createTodoCard(projectInstance, priority) {
-    // create the actual object
-    const newTodoItem = projectInstance.addTodo(nameFromInput.value, priority);
-    console.log(newTodoItem);
-
+function createTodoCard(todo) {
     // create the "card" in html
     const newDiv = document.createElement('div');
     newDiv.className = 'new-todo';
-    newDiv.textContent = newTodoItem.title;
+    newDiv.textContent = todo.title;
 
     // checkbox for strike-through text when completed
     const checkBox = document.createElement('input');
@@ -51,11 +47,11 @@ function createTodoCard(projectInstance, priority) {
     deleteButton.textContent = "Delete";
     
     deleteButton.addEventListener("click", function () {
-        projectInstance.deleteTodo(newTodoItem.id);  // remove the actual todo in memory
+        currentProject.deleteTodo(todo.id);  // remove the actual todo in memory
         newDiv.remove();  // remove the todo card
     })
 
-    if (priority == true) {
+    if (todo.priority == true) {
         newDiv.classList.add('high-priority');
     }
     else {
@@ -65,7 +61,6 @@ function createTodoCard(projectInstance, priority) {
     newDiv.appendChild(checkBox);
     newDiv.appendChild(deleteButton);
     listContent.appendChild(newDiv);
-    //console.log(currentProject.getTodos());
 
 }
 
@@ -95,13 +90,7 @@ function displayProject(projectInstance) {
     const todos = projectInstance.getTodos();
     listContent.innerHTML = ""; // clear previous project
     for (const todo of todos) {  // display each todo
-        const newDiv = document.createElement('div');
-        newDiv.className = 'new-todo';
-        newDiv.textContent = todo.title;
-        listContent.appendChild(newDiv);
-
-        //createTodoCard(currentProject, todo.priority);
-
+        createTodoCard(todo);
     }
 }
 
@@ -114,7 +103,10 @@ createTodoButton.addEventListener("click", function() {
     else {
         priority = false;
     }
-    createTodoCard(currentProject, priority);
+    // create actual todo item
+    const newTodoItem = currentProject.addTodo(nameFromInput.value, priority);
+    // call function to display todo
+    createTodoCard(newTodoItem);
     nameFromInput.value = '';
     
 });
